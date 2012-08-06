@@ -147,7 +147,7 @@ class Advice {
     private static $cache = array();
 
     public function cache($point, $params, $options, $proceed) {
-        if (isset(self::$cache[$options[0]])) {
+        if (array_key_exists($options[0], self::$cache)) {
             return self::$cache[$options[0]];
         } else {
             $result = $proceed();
