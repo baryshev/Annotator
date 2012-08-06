@@ -82,7 +82,7 @@ class Annotator {
 			}
 
 			foreach ($matches[2] as $position => $annotation) {
-				$options = split('[ 	]+', $matches[3][$position]);
+				$options = preg_split('![ 	]+!', $matches[3][$position]);
 				switch ($annotation) {
 					case 'info' :
 						call_user_func(array_shift($options), array($class->name, $method->name), $options);
@@ -155,7 +155,6 @@ class Annotator {
 				$use = 'use (' . implode(', ', $parametersForUse) . ')';
 			}
 
-			runkit_method_rename($class->name, $method->name, '__annotator_' . $method->name);
 			$function = '
 				$__annotator_parameters = array();
 				' . implode(' ', $parametersForAdvice) . '
@@ -168,6 +167,8 @@ class Annotator {
 				' . $after . '
 				return $__annotator_result;
 			';
+
+			runkit_method_rename($class->name, $method->name, '__annotator_' . $method->name);
 			runkit_method_add(
 				$class->name,
 				$method->name,
