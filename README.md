@@ -7,7 +7,7 @@
 
 ## Installation
 
-    git clone git://github.com/nkresge/runkit.git
+    git clone git://github.com/zenovich/runkit.git
     cd runkit
     phpize && ./configure && make && sudo make install
 
